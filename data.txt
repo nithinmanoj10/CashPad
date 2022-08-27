@@ -1,0 +1,3 @@
+Roll Number,Name,Course,CGPA
+B190645CS,Nithin P Manoj,B.Tech,8.48
+B230911CS,Amal P Manoj,B.Tech,9.21
