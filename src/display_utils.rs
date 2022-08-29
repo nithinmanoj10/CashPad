@@ -2,6 +2,9 @@
 // something important to the screen
 
 use colored::Colorize;
+use text_io::read;
+use std::io;
+use std::io::Write;
 
 pub fn print_gamepad() {
     println!("💰 {} 💰", "Welcome to CashPad".yellow().bold());
@@ -28,7 +31,15 @@ pub fn display_merchant_menu() {
 
     println!("{}. View All Merchants", "1".cyan());
     println!("{}. Add New Merchant", "2".cyan());
-    println!("{}. Update Merchant Info", "3".cyan());
 
     println!("\n{}. Go back to Main Menu", "0".red());
+}
+
+pub fn display_go_back_message() {
+    print!(
+                "{}",
+                "Hit enter to go back".green().blink()
+            );
+            io::stdout().flush().unwrap();
+            let _dummy_enter: String = read!("{}\n");
 }

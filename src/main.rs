@@ -2,11 +2,11 @@ use std::io;
 use std::io::Write;
 use text_io::read;
 
-mod display_utils;
-mod system_utils;
 mod cashpad;
 mod database;
+mod display_utils;
 mod merchant;
+mod system_utils;
 
 fn main() {
     loop {

@@ -1,13 +1,13 @@
 // Module containing structs, functions, enums, etc related
 // to the database records used in this application
 
+use crate::system_utils;
+use colored::Colorize;
 use std::io;
 use std::io::Write;
-use colored::Colorize;
 use text_io::read;
-use crate::system_utils;
 
-#[derive(Debug)]    
+#[derive(Debug)]
 pub struct TransactionRecord<'a> {
     pub id: i32,
     pub date: String,
@@ -43,7 +43,7 @@ impl Default for TransactionRecord<'_> {
 impl TransactionRecord<'_> {
     pub fn input_transaction_record(&mut self) {
         self.display_input_transaction_menu();
-        
+
         println!("{}\n", "Choose Merchant:".yellow().bold());
         // TODO: Print out all the merchants added so far
         print!("Enter merchant number: ");
@@ -59,7 +59,7 @@ impl TransactionRecord<'_> {
         self.transaction_type_id = read!("{}\n");
 
         self.display_input_transaction_menu();
-    
+
         println!("{}\n", "Choose Transaction Medium:".yellow().bold());
         // TODO: Print out all the transaction medium added so far
         print!("Enter transaction medium number: ");
@@ -75,7 +75,7 @@ impl TransactionRecord<'_> {
         self.transaction_amount = read!("{}\n");
 
         self.display_input_transaction_menu();
-        
+
         // TODO: Rest of the values
     }
 
@@ -84,22 +84,33 @@ impl TransactionRecord<'_> {
         println!("🏦 {}", "Add Transaction".cyan().bold());
 
         if self.merchant_id != -1 {
-            println!("\n{}: {}", "Merchant Id".yellow().bold() ,self.merchant_id)
+            println!("\n{}: {}", "Merchant Id".yellow().bold(), self.merchant_id)
         }
 
         if self.transaction_type_id != -1 {
-            println!("{}: {}", "Transaction Type ID".yellow().bold() ,self.transaction_type_id)
+            println!(
+                "{}: {}",
+                "Transaction Type ID".yellow().bold(),
+                self.transaction_type_id
+            )
         }
 
         if self.transaction_medium_id != -1 {
-            println!("{}: {}", "Transaction Medium ID".yellow().bold() ,self.transaction_medium_id)
+            println!(
+                "{}: {}",
+                "Transaction Medium ID".yellow().bold(),
+                self.transaction_medium_id
+            )
         }
 
         if self.transaction_amount != -1 {
-            println!("{}: {}", "Transaction Amount".yellow().bold() ,self.transaction_amount)
+            println!(
+                "{}: {}",
+                "Transaction Amount".yellow().bold(),
+                self.transaction_amount
+            )
         }
 
         println!("");
     }
 }
-
