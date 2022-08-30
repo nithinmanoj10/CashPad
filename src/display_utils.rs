@@ -43,3 +43,12 @@ pub fn display_go_back_message() {
             io::stdout().flush().unwrap();
             let _dummy_enter: String = read!("{}\n");
 }
+
+pub fn display_retry_operation_message() {
+    print!(
+                "{}",
+                "Hit enter to retry the operation".yellow().blink()
+            );
+            io::stdout().flush().unwrap();
+            let _dummy_enter: String = read!("{}\n");
+}

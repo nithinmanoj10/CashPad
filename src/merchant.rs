@@ -32,11 +32,7 @@ pub fn display_merchant_table() {
     let merchant_table: Vec<&str> = merchant_file_contents.lines().collect();
     let merchant_header: Vec<&str> = merchant_table[0].split(",").collect();
     let merchant_data: &[&str] = &merchant_table[1..];
-
-    // println!("{:#?}", merchant_table);
-    // println!("{:#?}", merchant_header);
-    // println!("{:#?}", merchant_data);
-
+    
     println!(
         "{0: <20} {1: <20}",
         merchant_header[0].white().dimmed(),
@@ -112,4 +108,31 @@ fn get_merchant_count() -> u32 {
     let merchant_lines: Vec<&str> = merchant_contents.lines().collect();
 
     return (merchant_lines.len() - 1).try_into().unwrap();
+}
+
+pub fn get_merchant_name(id: i32) -> Result<String, String> {
+    // Returns the merchant name corresponding
+    // to the id passed to the function
+    // If the merchant is found -> Ok(<merchant_name>)
+    // If not found -> Err("Merchant not found")
+
+    if id <= 0 {
+        return Err("Please enter a positive value".to_string());
+    }
+
+    let merchant_contents =
+        fs::read_to_string("./src/data/db_merchant.csv").expect("Can't find file db_merchant.rs");
+    let merchant_lines: Vec<&str> = merchant_contents.lines().collect();
+    let merchant_data: &[&str] = &merchant_lines[1..];
+
+    for data in merchant_data {
+        let data: Vec<&str> = data.split(",").collect();
+        let data_id: i32 = data[0].parse().unwrap();
+
+        if data_id == id {
+            return Ok(data[1].to_string())
+        }
+    }
+
+    Err("Merchant not found".to_string())
 }
