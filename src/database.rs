@@ -4,6 +4,7 @@
 use crate::display_utils;
 use crate::merchant;
 use crate::system_utils;
+use crate::transaction_type;
 
 use colored::Colorize;
 use std::io;
@@ -18,9 +19,9 @@ pub struct TransactionRecord<'a> {
     pub merchant_name: String,
     pub transaction_type_id: i32,
     pub transaction_type_name: String,
-    pub transaction_medium_id: i32,
-    pub transaction_medium_name: String,
     pub transaction_amount: i32,
+    pub is_debit_id: i32,
+    pub is_debit: bool,
     pub category: Vec<&'a str>,
     pub description: String,
 }
@@ -34,8 +35,8 @@ impl Default for TransactionRecord<'_> {
             merchant_name: String::from(""),
             transaction_type_id: -1,
             transaction_type_name: String::from(""),
-            transaction_medium_id: -1,
-            transaction_medium_name: String::from(""),
+            is_debit_id: -1,
+            is_debit: true,
             transaction_amount: -1,
             category: Vec::new(),
             description: String::from(""),
@@ -69,33 +70,85 @@ impl TransactionRecord<'_> {
             }
         }
 
+        // for choosing transaction type
+        loop {
+            self.display_input_transaction_menu();
+
+            println!("{}\n", "Choose Transaction Type:".yellow().bold());
+
+            transaction_type::display_transaction_type_table();
+
+            print!("Enter transaction type number: ");
+            io::stdout().flush().unwrap();
+            self.transaction_type_id = read!("{}\n");
+
+            match transaction_type::get_transaction_type_name(self.transaction_type_id) {
+                Ok(name) => {
+                    self.transaction_type_name = name;
+                    break;
+                }
+                Err(err) => {
+                    self.transaction_type_id = -1;
+                    println!("{}: {}", "Error".red().bold(), err);
+                    display_utils::display_retry_operation_message();
+                }
+            }
+        }
+
+        // Getting the transaction amount
         self.display_input_transaction_menu();
 
-        println!("{}\n", "Choose Transaction Type:".yellow().bold());
-        // TODO: Print out all the transactions types added so far
-        print!("Enter transaction type number: ");
-        io::stdout().flush().unwrap();
-        self.transaction_type_id = read!("{}\n");
-
-        self.display_input_transaction_menu();
-
-        println!("{}\n", "Choose Transaction Medium:".yellow().bold());
-        // TODO: Print out all the transaction medium added so far
-        print!("Enter transaction medium number: ");
-        io::stdout().flush().unwrap();
-        self.transaction_medium_id = read!("{}\n");
-
-        self.display_input_transaction_menu();
-
-        println!("{}\n", "Transaction Amount:".yellow().bold());
-        // TODO: Print out all the transaction medium added so far
+        println!("{}\n", "Transaction Amount".yellow().bold());
         print!("Enter transaction amount: ");
         io::stdout().flush().unwrap();
         self.transaction_amount = read!("{}\n");
 
+        // checking if money is debited or credited
+        loop {
+            self.display_input_transaction_menu();
+
+            println!("{}\n", "Debit or Credit?".yellow().bold());
+            println!(
+                "{}. Debit\n{}. Credit\n",
+                "1".cyan().bold(),
+                "2".cyan().bold()
+            );
+
+            print!("Enter Option: ");
+            io::stdout().flush().unwrap();
+            let debit_option: i32 = read!("{}\n");
+
+            if debit_option == 1 {
+                self.is_debit = true;
+                self.is_debit_id = 1;
+                break;
+            } else if debit_option == 2 {
+                self.is_debit = false;
+                self.is_debit_id = 1;
+                break;
+            } else {
+                println!("Enter a valid option");
+                display_utils::display_retry_operation_message();
+            }
+        }
+
         self.display_input_transaction_menu();
 
         // TODO: Rest of the values
+
+        // Getting the transaction description
+        println!("{}\n", "Transaction Description".yellow().bold());
+        println!(
+            "{}:",
+            "Enter description in less than 20 words".cyan().bold()
+        );
+
+        self.description = read!("{}\n");
+
+        self.display_input_transaction_menu();
+
+        println!("{:#?}", self);
+        display_utils::display_go_back_message();
     }
 
     pub fn display_input_transaction_menu(&mut self) {
@@ -107,23 +160,15 @@ impl TransactionRecord<'_> {
                 "\n{}: {}",
                 "Merchant Name".yellow().bold(),
                 self.merchant_name
-            )
+            );
         }
 
         if self.transaction_type_id != -1 {
             println!(
                 "{}: {}",
-                "Transaction Type ID".yellow().bold(),
-                self.transaction_type_id
-            )
-        }
-
-        if self.transaction_medium_id != -1 {
-            println!(
-                "{}: {}",
-                "Transaction Medium ID".yellow().bold(),
-                self.transaction_medium_id
-            )
+                "Transaction Type".yellow().bold(),
+                self.transaction_type_name
+            );
         }
 
         if self.transaction_amount != -1 {
@@ -131,7 +176,29 @@ impl TransactionRecord<'_> {
                 "{}: {}",
                 "Transaction Amount".yellow().bold(),
                 self.transaction_amount
-            )
+            );
+        }
+
+        if self.is_debit_id == 1 {
+            if self.is_debit {
+                println!(
+                    "{} debited from account",
+                    format!("₹{}", self.transaction_amount).red().bold()
+                );
+            } else {
+                println!(
+                    "{} credited from account",
+                    format!("₹{}", self.transaction_amount).green().bold()
+                );
+            }
+        }
+
+        if self.description != "" {
+            println!(
+                "{}: {}",
+                "Description".yellow().bold(),
+                self.description
+            );
         }
 
         println!("");

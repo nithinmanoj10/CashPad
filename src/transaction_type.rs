@@ -49,7 +49,7 @@ pub fn display_transaction_type_menu() {
     println!("\n{}. Go back to Main Menu", "0".red());
 }
 
-fn display_transaction_type_table() {
+pub fn display_transaction_type_table() {
     let transaction_type_contents: String =
         fs::read_to_string("./src/data/db_transaction_type.csv")
             .expect("Can't open file db_transaction_type.csv");
@@ -142,4 +142,32 @@ fn get_transaction_type_count() -> i32 {
     let transaction_type_lines: Vec<&str> = transaction_type_contents.lines().collect();
 
     return (transaction_type_lines.len() - 1).try_into().unwrap();
+}
+
+pub fn get_transaction_type_name(id: i32) -> Result<String, String> {
+    // Returns the transaction type name for the corresponding
+    // transaction type id
+    // Ok(<transaction_type_name>)
+    // Err("Transaction Type not found")
+
+    if id <= 0 {
+        return Err("Please enter a positive value".to_string());
+    }
+
+    let transaction_type_contents: String =
+        fs::read_to_string("./src/data/db_transaction_type.csv")
+            .expect("Can't find file db_transaction_type.csv");
+    let transaction_type_lines: Vec<&str> = transaction_type_contents.lines().collect();
+    let transaction_type_data: &[&str] = &transaction_type_lines[1..];
+
+    for data in transaction_type_data {
+        let data: Vec<&str> = data.split(",").collect();
+        let data_id: i32 = data[0].parse().unwrap();
+
+        if data_id == id {
+            return Ok(data[1].to_string());
+        }
+    }
+
+    Err("Transaction Type not found".to_string())
 }
