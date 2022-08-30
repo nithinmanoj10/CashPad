@@ -10,6 +10,7 @@ use crate::database;
 use crate::display_utils;
 use crate::merchant;
 use crate::system_utils;
+use crate::transaction_type;
 
 pub fn cashpad(option: u32) {
     match option {
@@ -47,6 +48,26 @@ pub fn cashpad(option: u32) {
 
                 system_utils::clear_screen();
                 merchant::merchant(merchant_option);
+            }
+        }
+
+        4 => {
+            // Go to Transaction Type Main Menu
+
+            loop {
+                system_utils::clear_screen();
+                transaction_type::display_transaction_type_menu();
+
+                print!("\nEnter Option Number: ");
+                io::stdout().flush().unwrap();
+                let transaction_type_option: i32 = read!("{}\n");
+
+                if transaction_type_option == 0 {
+                    break;
+                }
+
+                system_utils::clear_screen();
+                transaction_type::transaction(transaction_type_option);
             }
         }
 

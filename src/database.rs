@@ -1,9 +1,9 @@
 // Module containing structs, functions, enums, etc related
 // to the database records used in this application
 
-use crate::system_utils;
-use crate::merchant;
 use crate::display_utils;
+use crate::merchant;
+use crate::system_utils;
 
 use colored::Colorize;
 use std::io;
@@ -45,18 +45,17 @@ impl Default for TransactionRecord<'_> {
 
 impl TransactionRecord<'_> {
     pub fn input_transaction_record(&mut self) {
-
         // for choosing merchant number
-        loop {        
+        loop {
             self.display_input_transaction_menu();
             println!("{}\n", "Choose Merchant:".yellow().bold());
-            
+
             merchant::display_merchant_table();
-    
+
             print!("Enter merchant number: ");
             io::stdout().flush().unwrap();
             self.merchant_id = read!("{}\n");
-    
+
             match merchant::get_merchant_name(self.merchant_id) {
                 Ok(merchant_name) => {
                     self.merchant_name = merchant_name;
@@ -69,7 +68,6 @@ impl TransactionRecord<'_> {
                 }
             }
         }
-
 
         self.display_input_transaction_menu();
 
@@ -105,7 +103,11 @@ impl TransactionRecord<'_> {
         println!("🏦 {}", "Add Transaction".cyan().bold());
 
         if self.merchant_id != -1 {
-            println!("\n{}: {}", "Merchant Name".yellow().bold(), self.merchant_name)
+            println!(
+                "\n{}: {}",
+                "Merchant Name".yellow().bold(),
+                self.merchant_name
+            )
         }
 
         if self.transaction_type_id != -1 {

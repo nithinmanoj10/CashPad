@@ -7,6 +7,7 @@ mod database;
 mod display_utils;
 mod merchant;
 mod system_utils;
+mod transaction_type;
 
 fn main() {
     loop {

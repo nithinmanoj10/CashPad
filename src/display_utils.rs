@@ -2,9 +2,9 @@
 // something important to the screen
 
 use colored::Colorize;
-use text_io::read;
 use std::io;
 use std::io::Write;
+use text_io::read;
 
 pub fn print_gamepad() {
     println!("💰 {} 💰", "Welcome to CashPad".yellow().bold());
@@ -18,6 +18,7 @@ pub fn display_main_menu() {
     println!("{}. View Previous Transactions", "2".cyan());
 
     println!("\n{}. Go to Merchant Menu", "3".cyan());
+    println!("{}. Go to Transaction Type Menu", "4".cyan());
 
     println!("\n{}. Exit", "0".red());
 }
@@ -36,19 +37,13 @@ pub fn display_merchant_menu() {
 }
 
 pub fn display_go_back_message() {
-    print!(
-                "{}",
-                "Hit enter to go back".green().blink()
-            );
-            io::stdout().flush().unwrap();
-            let _dummy_enter: String = read!("{}\n");
+    print!("{}", "Hit enter to go back".green().blink());
+    io::stdout().flush().unwrap();
+    let _dummy_enter: String = read!("{}\n");
 }
 
 pub fn display_retry_operation_message() {
-    print!(
-                "{}",
-                "Hit enter to retry the operation".yellow().blink()
-            );
-            io::stdout().flush().unwrap();
-            let _dummy_enter: String = read!("{}\n");
+    print!("{}", "Hit enter to retry the operation".yellow().blink());
+    io::stdout().flush().unwrap();
+    let _dummy_enter: String = read!("{}\n");
 }

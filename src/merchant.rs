@@ -32,7 +32,7 @@ pub fn display_merchant_table() {
     let merchant_table: Vec<&str> = merchant_file_contents.lines().collect();
     let merchant_header: Vec<&str> = merchant_table[0].split(",").collect();
     let merchant_data: &[&str] = &merchant_table[1..];
-    
+
     println!(
         "{0: <20} {1: <20}",
         merchant_header[0].white().dimmed(),
@@ -85,7 +85,10 @@ pub fn merchant(option: i32) {
             write!(
                 db_merchant,
                 "{}",
-                format!("\n{},{}", new_merchant.merchant_id, new_merchant.merchant_name)
+                format!(
+                    "\n{},{}",
+                    new_merchant.merchant_id, new_merchant.merchant_name
+                )
             )
             .expect("Can't find db_merchant.csv");
 
@@ -130,7 +133,7 @@ pub fn get_merchant_name(id: i32) -> Result<String, String> {
         let data_id: i32 = data[0].parse().unwrap();
 
         if data_id == id {
-            return Ok(data[1].to_string())
+            return Ok(data[1].to_string());
         }
     }
 
