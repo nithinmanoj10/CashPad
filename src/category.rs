@@ -1,9 +1,27 @@
 // This module contains functions, impl, etc
 // for category
 
-use std::fs;
-use colored::Colorize;
 use crate::display_utils;
+use colored::Colorize;
+use std::fs;
+use text_io::read;
+use std::io;
+use std::io::Write;
+
+struct CategoryRecord {
+    id: i32,
+    category_name: String,
+}
+
+impl CategoryRecord {
+    fn read_category_details(&mut self) {
+        self.id = get_category_count() + 1;
+
+        print!("{}: ", "Enter Category Name".yellow().bold());
+        io::stdout().flush().unwrap();
+        self.category_name = read!("{}\n");
+    }
+}
 
 pub fn display_category_menu() {
     // Displays the following category menu:
@@ -34,9 +52,7 @@ fn display_category_table() {
 
     println!(
         "{}",
-        "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-            .yellow()
-            .bold()
+        "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━".yellow().bold()
     );
 
     for data in category_data {
@@ -46,9 +62,7 @@ fn display_category_table() {
 
     println!(
         "{}",
-        "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-            .yellow()
-            .bold()
+        "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━".yellow().bold()
     );
 }
 
@@ -61,9 +75,48 @@ pub fn category(option: i32) {
             display_utils::display_go_back_message();
         }
 
+        2 => {
+            // Add new Category
+            println!("{}\n", "Add new Category".cyan().bold());
+
+            let mut db_category = fs::OpenOptions::new()
+                .write(true)
+                .append(true)
+                .open("./src/data/db_category.csv")
+                .unwrap();
+
+            let mut new_category: CategoryRecord = CategoryRecord {
+                id: -1,
+                category_name: String::from(""),
+            };
+
+            new_category.read_category_details();
+
+            write!(
+                db_category,
+                "{}",
+                format!("\n{},{}", new_category.id, new_category.category_name)
+            )
+            .expect("Can't open db_category.csv");
+
+            println!("\n{}", "Category successfully added".green().bold());
+            display_utils::display_go_back_message();
+        }
+
         _ => {
             println!("\n{}", "Please enter a valid option number".red());
             display_utils::display_go_back_message();
         }
     }
+}
+
+fn get_category_count() -> i32 {
+    // Returns the number of category records
+    // in the database db_category.csv
+
+    let category_contents: String =
+        fs::read_to_string("./src/data/db_category.csv").expect("Can't open file db_category.csv");
+
+    let category_lines: Vec<&str> = category_contents.lines().collect();
+    return (category_lines.len() - 1).try_into().unwrap();
 }
