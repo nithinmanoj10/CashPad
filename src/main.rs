@@ -3,6 +3,7 @@ use std::io::Write;
 use text_io::read;
 
 mod cashpad;
+mod category;
 mod database;
 mod display_utils;
 mod merchant;

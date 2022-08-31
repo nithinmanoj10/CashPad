@@ -194,11 +194,7 @@ impl TransactionRecord<'_> {
         }
 
         if self.description != "" {
-            println!(
-                "{}: {}",
-                "Description".yellow().bold(),
-                self.description
-            );
+            println!("{}: {}", "Description".yellow().bold(), self.description);
         }
 
         println!("");

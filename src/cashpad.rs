@@ -6,6 +6,7 @@ use std::io::Write;
 use std::process;
 use text_io::read;
 
+use crate::category;
 use crate::database;
 use crate::display_utils;
 use crate::merchant;
@@ -68,6 +69,25 @@ pub fn cashpad(option: u32) {
 
                 system_utils::clear_screen();
                 transaction_type::transaction(transaction_type_option);
+            }
+        }
+
+        5 => {
+            // Go to Category Main Menu
+            loop {
+                system_utils::clear_screen();
+                category::display_category_menu();
+
+                print!("\nEnter Option Number: ");
+                io::stdout().flush().unwrap();
+                let category_option: i32 = read!("{}\n");
+
+                if category_option == 0 {
+                    break;
+                }
+
+                system_utils::clear_screen();
+                category::category(category_option);
             }
         }
 

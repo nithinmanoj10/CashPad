@@ -19,6 +19,7 @@ pub fn display_main_menu() {
 
     println!("\n{}. Go to Merchant Menu", "3".cyan());
     println!("{}. Go to Transaction Type Menu", "4".cyan());
+    println!("{}. Go to Category Menu", "5".cyan());
 
     println!("\n{}. Exit", "0".red());
 }
