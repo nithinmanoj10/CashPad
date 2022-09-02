@@ -171,3 +171,31 @@ pub fn get_transaction_type_name(id: i32) -> Result<String, String> {
 
     Err("Transaction Type not found".to_string())
 }
+
+pub fn get_transaction_type_emoticon(id: i32) -> Result<String, String> {
+    // Returns the transaction type emoticon for the corresponding
+    // transaction type id
+    // Ok(<transaction_type_emoticon>)
+    // Err("Transaction Type not found")
+
+    if id <= 0 {
+        return Err("Please enter a positive value".to_string());
+    }
+
+    let transaction_type_contents: String =
+        fs::read_to_string("./src/data/db_transaction_type.csv")
+            .expect("Can't find file db_transaction_type.csv");
+    let transaction_type_lines: Vec<&str> = transaction_type_contents.lines().collect();
+    let transaction_type_data: &[&str] = &transaction_type_lines[1..];
+
+    for data in transaction_type_data {
+        let data: Vec<&str> = data.split(",").collect();
+        let data_id: i32 = data[0].parse().unwrap();
+
+        if data_id == id {
+            return Ok(data[2].to_string());
+        }
+    }
+
+    Err("Transaction Type not found".to_string())
+}

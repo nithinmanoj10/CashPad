@@ -4,9 +4,9 @@
 use crate::display_utils;
 use colored::Colorize;
 use std::fs;
-use text_io::read;
 use std::io;
 use std::io::Write;
+use text_io::read;
 
 struct CategoryRecord {
     id: i32,
@@ -37,7 +37,7 @@ pub fn display_category_menu() {
     println!("\n{}. Go back to Main Menu", "0".red());
 }
 
-fn display_category_table() {
+pub fn display_category_table() {
     let category_contents: String =
         fs::read_to_string("./src/data/db_category.csv").expect("Can't open file db_category.csv");
     let category_table: Vec<&str> = category_contents.lines().collect();
@@ -119,4 +119,31 @@ fn get_category_count() -> i32 {
 
     let category_lines: Vec<&str> = category_contents.lines().collect();
     return (category_lines.len() - 1).try_into().unwrap();
+}
+
+pub fn get_category_name(id: i32) -> Result<String, String> {
+    // Returns the category name for the corresponding
+    // category id
+    // Ok(<category_name>)
+    // Err("Category not found")
+
+    if id <= 0 {
+        return Err("Please enter a positive value".to_string());
+    }
+
+    let category_contents: String =
+        fs::read_to_string("./src/data/db_category.csv").expect("Can't find file db_category.csv");
+    let category_lines: Vec<&str> = category_contents.lines().collect();
+    let category_data: &[&str] = &category_lines[1..];
+
+    for data in category_data {
+        let data: Vec<&str> = data.split(",").collect();
+        let data_id: i32 = data[0].parse().unwrap();
+
+        if data_id == id {
+            return Ok(data[1].to_string());
+        }
+    }
+
+    Err("Category not found".to_string())
 }

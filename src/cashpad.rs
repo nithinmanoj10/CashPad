@@ -29,7 +29,16 @@ pub fn cashpad(option: u32) {
 
             system_utils::clear_screen();
             new_trans_record.input_transaction_record();
-            println!("{:?}", new_trans_record);
+        }
+
+        2 => {
+            // View all transactions
+            system_utils::clear_screen();
+            println!("{}\n", "All Transactions".yellow().bold());
+
+            database::display_transaction_table();
+
+            display_utils::display_go_back_message();
         }
 
         3 => {
