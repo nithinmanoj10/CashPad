@@ -50,11 +50,42 @@ impl Default for TransactionRecord {
 
 impl TransactionRecord {
     pub fn input_transaction_record(&mut self) {
+
+        // adding date
+        loop {
+            self.display_input_transaction_menu();
+            println!("{}\n", "Choose Date:".yellow().bold());
+
+            println!("{}", "Hit enter for todays date".dimmed());
+            print!("Enter Date {}: ", "DD-MM-YYYY".dimmed());
+            io::stdout().flush().unwrap();
+            let input_date: String = read!("{}\n");
+
+            // empty string - todays date
+
+            match &input_date.len() {
+                0 => {
+                    self.date = system_utils::get_current_date();
+                    break;
+                }
+                10 => {
+                    // TODO: Check if the date entered by the user is valid
+                    self.date = String::from(&input_date);
+                    break;
+                }
+                _ => {
+                    println!("{}", "Please enter a valid date".red());
+                    display_utils::display_retry_operation_message();
+                }
+            }
+        }
+
+
         // for choosing merchant number
         loop {
             self.display_input_transaction_menu();
             println!("{}\n", "Choose Merchant:".yellow().bold());
-
+            
             merchant::display_merchant_table();
 
             print!("Enter merchant number: ");
@@ -136,6 +167,7 @@ impl TransactionRecord {
             }
         }
 
+        // For choosing categories
         loop {
             self.display_input_transaction_menu();
 
@@ -180,8 +212,35 @@ impl TransactionRecord {
 
         self.display_input_transaction_menu();
 
-        // adding date
-        self.date = system_utils::get_current_date();
+        // TODO: Ask the user if they want to make any changes
+        // to the input they made
+        // let mut update_option: String = String::from("");
+        // loop {
+        //     self.display_input_transaction_menu();
+
+        //     println!("\n{}", "Update Transaction Record".yellow().bold());
+        //     println!("{}", "Hit enter if you don't want to update, else press 1".dimmed());
+
+        //     print!("Option: ");
+        //     io::stdout().flush().unwrap();
+        //     update_option = read!("{}\n");
+
+            // match &update_option {
+            //     "" => {
+            //         break;
+            //     }
+            //     "1" => {
+            //         self.update_transaction_record();
+            //     }
+            //     _ => {
+            //         println!("Please enter a valid option");
+            //         display_utils::display_retry_operation_message();
+            //     }
+            // }
+        // }
+        // while update_option != 0 {
+        //     self.update_transaction_record();
+        // }
 
         let mut db_transactions = fs::OpenOptions::new()
             .write(true)
@@ -227,6 +286,14 @@ impl TransactionRecord {
     pub fn display_input_transaction_menu(&mut self) {
         system_utils::clear_screen();
         println!("🏦 {}", "Add Transaction".cyan().bold());
+
+        if self.date.len() != 0 {
+            println!(
+                "\n{}: {}",
+                "Date".yellow().bold(),
+                self.date
+            );
+        }
 
         if self.merchant_id != -1 {
             println!(
@@ -284,7 +351,13 @@ impl TransactionRecord {
 
         println!("");
     }
+
+    // TODO: Complete this
+    // fn update_transaction_record(&mut self) {
+    //     display_utils::display_go_back_message();
+    // }
 }
+
 
 pub fn display_transaction_table() {
     // Displays all the transaction records
