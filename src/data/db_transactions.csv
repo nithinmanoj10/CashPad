@@ -7,3 +7,6 @@ Id,Date,Merchant Id,Transaction Type Id,Amount,is_debit,Category Ids,Description
 6,02-09-2022,4,3,15,true,5,Bus from Gokulam - old payment
 7,02-09-2022,5,3,23,true,5,Bus to Gokulam - old payment
 8,02-09-2022,6,3,8,true,2,Black tea
+9,03-09-2022,1,3,55,true,1,chicken and peanut chikki
+10,03-09-2022,1,3,10,true,1,Curd
+11,03-09-2022,6,3,10,true,2,Lime Soda

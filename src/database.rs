@@ -386,8 +386,20 @@ pub fn display_transaction_table() {
     );
 
     // displaying all the transaction data
+
+    let mut prev_date: &str = "00";
+    let mut curr_date: &str; 
+    let mut is_first_record: bool = true;
+
     for data in transactions_data {
         let data: Vec<&str> = data.split(",").collect();
+
+        // getting the current date
+        curr_date = &data[1][..2];
+
+        if curr_date != prev_date && !is_first_record{
+            println!("{}", "------------------------------------------------------------------------------------------------------------------------------------------------".dimmed());
+        }
 
         // Transaction ID
         print!("{0: <5}", data[0]);
@@ -464,6 +476,10 @@ pub fn display_transaction_table() {
 
         // display the transaction description
         print!(" {0: <40}", data[7]);
+
+        // updating prev_date
+        prev_date = curr_date;
+        is_first_record = false;
 
         println!("");
     }
