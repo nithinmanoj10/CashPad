@@ -9,6 +9,7 @@ use text_io::read;
 use crate::category;
 use crate::database;
 use crate::display_utils;
+use crate::filter_search;
 use crate::merchant;
 use crate::system_utils;
 use crate::transaction_type;
@@ -97,6 +98,25 @@ pub fn cashpad(option: u32) {
 
                 system_utils::clear_screen();
                 category::category(category_option);
+            }
+        }
+
+        6 => {
+            // Filter Search Transactions Main Menu
+            loop {
+                system_utils::clear_screen();
+                display_utils::display_filter_search_transactions_menu();
+
+                print!("\nEnter Option Number: ");
+                io::stdout().flush().unwrap();
+                let filter_option: i32 = read!("{}\n");
+
+                if filter_option == 0 {
+                    break;
+                }
+
+                system_utils::clear_screen();
+                filter_search::filter_search(filter_option);
             }
         }
 

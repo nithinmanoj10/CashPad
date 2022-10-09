@@ -6,6 +6,7 @@ mod cashpad;
 mod category;
 mod database;
 mod display_utils;
+mod filter_search;
 mod merchant;
 mod system_utils;
 mod transaction_type;

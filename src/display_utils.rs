@@ -21,6 +21,8 @@ pub fn display_main_menu() {
     println!("{}. Go to Transaction Type Menu", "4".cyan());
     println!("{}. Go to Category Menu", "5".cyan());
 
+    println!("\n{}. Filter Search Transactions", "6".cyan());
+
     println!("\n{}. Exit", "0".red());
 }
 
@@ -33,6 +35,19 @@ pub fn display_merchant_menu() {
 
     println!("{}. View All Merchants", "1".cyan());
     println!("{}. Add New Merchant", "2".cyan());
+
+    println!("\n{}. Go back to Main Menu", "0".red());
+}
+
+pub fn display_filter_search_transactions_menu() {
+    // Displays the menu screen for Filter Searching Transactions
+
+    println!("{}\n", "Filter Search Transaction by".yellow().bold());
+
+    println!("{}. Time", "1".cyan());
+    println!("{}. Merchant", "2".cyan());
+    println!("{}. Payment Type", "3".cyan());
+    println!("{}. Category", "4".cyan());
 
     println!("\n{}. Go back to Main Menu", "0".red());
 }

@@ -50,7 +50,6 @@ impl Default for TransactionRecord {
 
 impl TransactionRecord {
     pub fn input_transaction_record(&mut self) {
-
         // adding date
         loop {
             self.display_input_transaction_menu();
@@ -80,12 +79,11 @@ impl TransactionRecord {
             }
         }
 
-
         // for choosing merchant number
         loop {
             self.display_input_transaction_menu();
             println!("{}\n", "Choose Merchant:".yellow().bold());
-            
+
             merchant::display_merchant_table();
 
             print!("Enter merchant number: ");
@@ -225,18 +223,18 @@ impl TransactionRecord {
         //     io::stdout().flush().unwrap();
         //     update_option = read!("{}\n");
 
-            // match &update_option {
-            //     "" => {
-            //         break;
-            //     }
-            //     "1" => {
-            //         self.update_transaction_record();
-            //     }
-            //     _ => {
-            //         println!("Please enter a valid option");
-            //         display_utils::display_retry_operation_message();
-            //     }
-            // }
+        // match &update_option {
+        //     "" => {
+        //         break;
+        //     }
+        //     "1" => {
+        //         self.update_transaction_record();
+        //     }
+        //     _ => {
+        //         println!("Please enter a valid option");
+        //         display_utils::display_retry_operation_message();
+        //     }
+        // }
         // }
         // while update_option != 0 {
         //     self.update_transaction_record();
@@ -288,11 +286,7 @@ impl TransactionRecord {
         println!("🏦 {}", "Add Transaction".cyan().bold());
 
         if self.date.len() != 0 {
-            println!(
-                "\n{}: {}",
-                "Date".yellow().bold(),
-                self.date
-            );
+            println!("\n{}: {}", "Date".yellow().bold(), self.date);
         }
 
         if self.merchant_id != -1 {
@@ -358,7 +352,6 @@ impl TransactionRecord {
     // }
 }
 
-
 pub fn display_transaction_table() {
     // Displays all the transaction records
     let transactions_content: String = fs::read_to_string("./src/data/db_transactions.csv")
@@ -388,7 +381,7 @@ pub fn display_transaction_table() {
     // displaying all the transaction data
 
     let mut prev_date: &str = "00";
-    let mut curr_date: &str; 
+    let mut curr_date: &str;
     let mut is_first_record: bool = true;
 
     for data in transactions_data {
@@ -397,7 +390,7 @@ pub fn display_transaction_table() {
         // getting the current date
         curr_date = &data[1][..2];
 
-        if curr_date != prev_date && !is_first_record{
+        if curr_date != prev_date && !is_first_record {
             println!("{}", "------------------------------------------------------------------------------------------------------------------------------------------------".dimmed());
         }
 
@@ -495,8 +488,136 @@ pub fn display_transaction_table() {
 fn get_transactions_count() -> i32 {
     // Returns the number of transaction records in the
     // database db_transactions.csv
-    let transactions_contents: String = fs::read_to_string("./src/data/db_transactions.csv").expect("Can't open file db_transactions.csv");
+    let transactions_contents: String = fs::read_to_string("./src/data/db_transactions.csv")
+        .expect("Can't open file db_transactions.csv");
     let transactions_lines: Vec<&str> = transactions_contents.lines().collect();
 
     return (transactions_lines.len() - 1).try_into().unwrap();
+}
+
+pub fn display_transaction_records(records: Vec<&str>) {
+    // printing the headers
+    println!(
+        "{0: <5} {1: <12} {2: <25} {3: <6} {4: <10} {5: <35} {6: <40}",
+        "Id".dimmed(),
+        "Date".dimmed(),
+        "Merchant".dimmed(),
+        "Type".dimmed(),
+        "Amount".dimmed(),
+        "Category".dimmed(),
+        "Description".dimmed()
+    );
+
+    println!(
+        "{}",
+        "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            .yellow()
+            .bold()
+    );
+
+    // displaying all the transaction data
+
+    let mut prev_date: &str = "00";
+    let mut curr_date: &str;
+    let mut is_first_record: bool = true;
+
+    for data in records {
+        let data: Vec<&str> = data.split(",").collect();
+
+        // getting the current date
+        curr_date = &data[1][..2];
+
+        if curr_date != prev_date && !is_first_record {
+            println!("{}", "------------------------------------------------------------------------------------------------------------------------------------------------".dimmed());
+        }
+
+        // Transaction ID
+        print!("{0: <5}", data[0]);
+        io::stdout().flush().unwrap();
+
+        // Date
+        print!(" {0: <12}", data[1]);
+        io::stdout().flush().unwrap();
+
+        // Merchant Name
+        let merchant_id: i32 = data[2].parse().unwrap();
+        match merchant::get_merchant_name(merchant_id) {
+            Ok(name) => {
+                print!(" {0: <25}", name);
+            }
+            Err(_err) => {
+                print!(" {0: <25}", "-");
+            }
+        }
+        io::stdout().flush().unwrap();
+
+        // Transaction Type Emoticon
+        let transaction_type_id: i32 = data[3].parse().unwrap();
+        match transaction_type::get_transaction_type_emoticon(transaction_type_id) {
+            Ok(emoticon) => {
+                print!(" {0: <6}", emoticon);
+            }
+            Err(_err) => {
+                print!(" {0: <6}", "-");
+            }
+        }
+        io::stdout().flush().unwrap();
+
+        // Transaction Amount
+        // checking if its a debited amount or not
+        match data[5] {
+            "true" => {
+                print!("{0: <10}", data[4].red());
+            }
+            "false" => {
+                print!("{0: <10}", data[4].green());
+            }
+            _ => {}
+        }
+
+        // Category
+        let category_ids: Vec<&str> = data[6].split("-").collect();
+        let mut category_string: String = String::from("");
+        let mut category_count: i32 = 0;
+        for id in &category_ids {
+            let id: i32 = id.parse().unwrap();
+
+            match category::get_category_name(id) {
+                Ok(name) => {
+                    category_string.push_str(&name);
+                }
+                Err(_err) => {
+                    category_string.push_str("N/A");
+                }
+            }
+
+            category_count += 1;
+
+            if category_count < category_ids.len().try_into().unwrap() {
+                category_string.push_str(", ");
+            }
+        }
+
+        if category_string.len() > 30 {
+            print!(" {0: <35}", format!("{} {}", &category_string[..29], "..."))
+        } else {
+            print!(" {0: <35}", category_string);
+        }
+
+        // display the transaction description
+        print!(" {0: <40}", data[7]);
+
+        // updating prev_date
+        prev_date = curr_date;
+        is_first_record = false;
+
+        println!("");
+    }
+
+    println!(
+        "{}",
+        "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            .yellow()
+            .bold()
+    );
 }

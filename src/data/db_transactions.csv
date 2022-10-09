@@ -10,3 +10,133 @@ Id,Date,Merchant Id,Transaction Type Id,Amount,is_debit,Category Ids,Description
 9,03-09-2022,1,3,55,true,1,chicken and peanut chikki
 10,03-09-2022,1,3,10,true,1,Curd
 11,03-09-2022,6,3,10,true,2,Lime Soda
+12,03-09-2022,6,3,20,true,2,lime soda + jaseem
+13,03-09-2022,5,3,15,false,2,lime soda
+14,04-09-2022,6,3,10,true,2,lime soda
+15,04-09-2022,7,3,124,true,2,no idea
+16,04-09-2022,7,3,28,true,5,bus
+17,04-09-2022,8,3,600,true,6,Borrowed money for PG mess cut
+18,04-09-2022,8,3,900,false,6,Got money back
+19,04-09-2022,5,3,16,true,2,Ice Popsicles
+20,04-09-2022,9,3,167,true,2,Food from Wez during SAC Onam
+21,05-09-2022,10,3,12,true,7,3 printouts of project abstract
+22,05-09-2022,1,3,25,true,1,Fish extra
+23,05-09-2022,11,3,10,true,2,Tea
+24,05-09-2022,6,3,25,true,2,Double Omlette
+25,05-09-2022,4,3,44,true,2,Bananas
+26,05-09-2022,6,3,50,true,2,Pure Orange juice - not worth it
+27,06-09-2022,9,3,257,true,2,Broast lunch
+28,06-09-2022,12,3,238,true,2,Bakehouse dinner after SAC Onam
+29,06-09-2022,13,3,100,true,2,SAC Onam Sadhya
+30,06-09-2022,9,3,235,true,5-9,Bus ticket calicut to challakudy
+31,06-09-2022,3,3,563,true,5-9,Return ticket tvm to calicut
+32,06-09-2022,5,3,364,true,5-9,Bus ticket challakudy to tvm
+33,07-09-2022,12,3,100,true,7,CSED Onam funds
+34,07-09-2022,11,1,30,true,2,actually tea+water from 4us
+35,07-09-2022,14,1,300,true,5,bus from tvmbdy to nitc - 12 ppl
+36,07-09-2022,1,3,25,true,1,Extra Fish
+37,07-09-2022,15,3,100,true,7,Fee payment testing of 100rs
+38,07-09-2022,16,1,151,true,2-9,beef + 3 porotta + tea
+39,08-09-2022,8,3,330,true,2-9,Shawarmashi
+40,09-09-2022,17,3,1033,true,8-9,Jaseem hospital visit in chalakudy
+41,09-09-2022,17,3,55,true,2-9,Tea from hospital and parle-g
+42,10-09-2022,7,3,291,true,2-9,Veg stir fry from 40 feet
+43,11-09-2022,18,3,434,true,2-9,Food from varkala beach
+44,13-09-2022,15,3,75000,true,10,First fee payment
+45,13-09-2022,15,3,20000,true,10,Second fee payment
+46,14-09-2022,1,3,25,true,1,Fish extra
+47,14-09-2022,1,3,87,true,1,Ice cream for bois
+48,14-09-2022,5,3,1033,false,8-9,Paid back hospital money
+49,14-09-2022,15,3,99000,true,10,third fee payment
+50,14-09-2022,5,3,500,true,10,Testing bank transfer for fee payment
+51,14-09-2022,5,3,40000,true,10,sent money for 4th fee payment
+52,15-09-2022,6,3,47,true,2,Tea + 2 Double omlette + Jeera Soda
+53,15-09-2022,6,3,10,true,2,Pineapple soda for adwaith
+54,15-09-2022,9,3,150,false,3,Sold shirt to Reuben
+55,15-09-2022,15,3,89905,true,10,5th fee payment
+56,15-09-2022,5,3,725,true,11,Paid of debt to Jaseem on GPay
+57,15-09-2022,19,3,242,true,11,Paid of debt to Jeswell on GPay
+58,15-09-2022,3,3,196,true,11,Paid off debt to Varghese on GPay
+59,15-09-2022,1,3,25,true,1,fish extra
+60,15-09-2022,1,3,45,true,1,Extra chicken
+61,16-09-2022,1,3,40,true,1,Extra chicken
+62,16-09-2022,5,3,336,true,2,Oranges, Mat, Glass Jar and other dues
+63,16-09-2022,21,3,1300,true,12,Goalie gift
+64,16-09-2022,22,2,141,true,12,G Badge
+65,16-09-2022,4,3,341,true,2,Rest of the dues
+66,17-09-2022,1,3,45,true,1,Extra chicken
+67,17-09-2022,1,3,12,true,1,Extra curd
+68,18-09-2022,23,3,63,true,13-2,Bananas + amla
+69,18-09-2022,24,3,382,true,2,Peanut butter, box, spoon
+70,18-09-2022,5,3,40,false,2-13,paid back for fruits
+71,18-09-2022,9,3,40,false,2-13,Paid back for fruits
+72,18-09-2022,1,3,92,true,1,2 chicken extra + curd
+73,19-09-2022,4,3,40,false,2-13,Paid back for fruits
+74,19-09-2022,20,3,30,true,14-15,Spotify subscription
+75,19-09-2022,1,3,30,true,1,extra chicken
+76,19-09-2022,4,3,1300,false,12,paid back trophy money
+77,19-09-2022,1,3,80,true,1,extra chicken + rameez
+78,20-09-2022,24,3,115,true,2,peanuts 300gm
+79,20-09-2022,23,3,105,true,2-13,banana smol oranges
+80,20-09-2022,1,3,37,true,1,fish + curd
+81,20-09-2022,1,3,45,true,1,Extra chicken
+82,21-09-2022,1,3,50,true,1,fish + fish for AKB
+83,21-09-2022,1,3,12,true,1,Curd extra
+84,21-09-2022,6,3,14,true,2,2 Tea
+85,21-09-2022,25,3,25,false,1,Fish extra
+86,22-09-2022,22,4,925,true,2-16,Protein powder
+87,22-09-2022,1,3,42,true,1,Extra chicken + curd
+88,22-09-2022,1,3,45,true,1,Extra chicken
+89,23-09-2022,3,3,125,true,11,paid rest of dues
+90,23-09-2022,1,3,12,true,1,extra curd
+91,23-09-2022,26,3,50,true,5,Auto to baston
+92,24-09-2022,12,3,35,true,4,Baston turf night
+93,24-09-2022,4,3,231,true,11,Split for azzaams bday
+94,24-09-2022,8,3,95,true,2,Broast from yummy
+95,24-09-2022,5,3,9,true,12-11,azzaam gift
+96,24-09-2022,24,3,94,true,2,fruits and peanuts
+97,24-09-2022,9,3,9,false,12-11,azzaam gift
+98,24-09-2022,4,3,9,false,12-11,azzaam gift
+99,24-09-2022,24,3,142,true,3,surf anf comfort
+100,24-09-2022,1,3,45,true,1,extra chicken
+101,24-09-2022,7,3,9,false,12-11,azzaam gift
+102,24-09-2022,1,3,12,true,1,extra curd
+103,24-09-2022,6,3,14,true,2,2 tea
+104,25-09-2022,1,3,40,true,1,extra chicken
+105,25-09-2022,1,3,12,true,1,extra curd
+106,25-09-2022,8,3,9,false,12-11,azzaam gift
+107,25-09-2022,1,3,45,true,1,extra chicken
+108,26-09-2022,1,3,25,true,1,extra fish
+109,26-09-2022,1,3,38,true,1,2 eggs + 1 curd
+110,26-09-2022,23,3,100,true,2-13,bananas
+111,26-09-2022,24,3,343,true,2,museli
+112,26-09-2022,1,3,40,true,1,extra chicken
+113,27-09-2022,1,3,37,true,1,fish + curd
+114,27-09-2022,15,3,5332,true,10-7,Mess dues for September
+115,27-09-2022,1,3,45,true,1,extra chicken
+116,28-09-2022,6,3,35,true,2,Chocolate shake
+117,28-09-2022,19,3,9,false,12-11,azzaam badge gift 
+118,28-09-2022,1,3,16,true,1,2 omlettes
+119,28-09-2022,1,3,12,true,1,extra curd
+120,28-09-2022,6,3,7,true,2,tea
+121,28-09-2022,1,3,50,true,1,extra chicken + jeswell
+122,28-09-2022,3,3,700,true,18-17,Camping site advance
+123,29-09-2022,1,3,25,true,1,extra fish
+124,29-09-2022,4,3,155,true,5,calicut to kannur ride
+125,30-09-2022,27,3,1449,true,2-17-18,dinner at Indique
+126,30-09-2022,3,3,250,true,5-18-17,diesel money
+127,01-10-2022,5,3,145,false,18-17,trip debt paid
+128,01-10-2022,28,3,500,true,5-18-17,petrol fill at kannur
+129,01-10-2022,29,3,592,true,18-17,chocolate + corn + tea
+130,02-10-2022,28,3,250,true,18-17,petrol fill at coorg
+131,02-10-2022,3,3,1530,true,18-17-11,Coorg expense split
+132,02-10-2022,19,3,290,false,18-17-11,coorg expense split
+133,02-10-2022,20,3,370,false,18-17-11,coorg expense split
+134,02-10-2022,4,3,16,false,18-17-11,coorg expense split
+135,02-10-2022,12,3,1440,true,18-17-11,coorg expense split
+136,03-10-2022,8,3,135,false,18-17-11,coorg expense split
+137,03-10-2022,9,3,220,false,18-17-11,coorg expense split
+138,03-10-2022,30,3,181,true,19,Data addon
+139,03-10-2022,3,3,202,true,18-17-11,coorg expense split
+140,03-10-2022,5,3,247,true,18-17-11,coorg expense split
+141,03-10-2022,19,3,190,true,18-17-11,coorg expense split

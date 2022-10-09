@@ -103,7 +103,7 @@ pub fn merchant(option: i32) {
     }
 }
 
-fn get_merchant_count() -> u32 {
+pub fn get_merchant_count() -> u32 {
     // Returns the number of merchant records
     // in the Merchant database i.e db_merchant.csv
     let merchant_contents =
@@ -138,4 +138,33 @@ pub fn get_merchant_name(id: i32) -> Result<String, String> {
     }
 
     Err("Merchant not found".to_string())
+}
+
+pub fn display_merchant_transactions_stats(transaction_records: Vec<&str>) {
+
+    let mut net_debit: i32 = 0;
+    let mut net_credit: i32 = 0;
+
+    for transaction in transaction_records {
+        let data: Vec<&str> = transaction.split(",").collect();
+        let amount: i32 = data[4].parse().unwrap();
+        // if it is a debit transaction
+        if data[5] == "true" {
+            net_debit += amount;
+        }
+        else {
+            net_credit += amount;
+        }
+    }
+
+    println!("{}: {}", "Credit", net_credit);
+    println!("{}: {}", "Debit", net_debit);
+
+    if net_credit > net_debit {
+        println!("{}: {}\n", "Net Spend".bold().yellow(), format!("{}", net_credit-net_debit).bold().green());
+    }
+    else {
+        println!("{}: {}\n", "Net Spend".bold().yellow(), format!("{}", net_debit-net_credit).bold().red());
+    }
+
 }
